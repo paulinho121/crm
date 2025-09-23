@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,6 +23,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
+import { createClient } from '@/app/actions';
 
 const clientSchema = z.object({
   name: z.string().min(2, 'Nome é obrigatório'),
@@ -37,6 +39,7 @@ type AddClientDialogProps = {
 };
 
 export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
+  const [isPending, startTransition] = React.useTransition();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof clientSchema>>({
     resolver: zodResolver(clientSchema),
@@ -50,14 +53,24 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
   });
 
   function onSubmit(values: z.infer<typeof clientSchema>) {
-    // In a real app, you would send this data to your server
-    console.log(values);
-    toast({
-      title: 'Cliente Criado',
-      description: `${values.name} foi adicionado com sucesso.`,
+    startTransition(async () => {
+      const result = await createClient(values);
+
+      if (result.error) {
+        toast({
+          title: 'Erro ao criar cliente',
+          description: result.error,
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Cliente Criado',
+          description: `${values.name} foi adicionado com sucesso.`,
+        });
+        onOpenChange(false);
+        form.reset();
+      }
     });
-    onOpenChange(false);
-    form.reset();
   }
 
   return (
@@ -137,8 +150,8 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
               )}
             />
              <DialogFooter>
-                <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancelar</Button>
-                <Button type="submit">Criar Cliente</Button>
+                <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} disabled={isPending}>Cancelar</Button>
+                <Button type="submit" disabled={isPending}>{isPending ? 'Criando...' : 'Criar Cliente'}</Button>
             </DialogFooter>
           </form>
         </Form>
