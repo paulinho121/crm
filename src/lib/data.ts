@@ -54,14 +54,14 @@ export const clients: Client[] = [
 ];
 
 export const sales: Sale[] = [
-  { id: '1', clientId: '1', clientName: 'InnovateTech Soluções', product: 'Serviço de Consultoria em IA', value: 15000, status: 'fechada', date: '2023-02-01' },
-  { id: '2', clientId: '2', clientName: 'GreenLeaf Orgânicos', product: 'Assinatura de Produtos Orgânicos', value: 1200, status: 'fechada', date: '2023-03-15' },
-  { id: '3', clientId: '3', clientName: 'Quantum-Core IA', product: 'Licença de Computação Quântica', value: 50000, status: 'em andamento', date: '2023-04-10' },
-  { id: '4', clientId: '1', clientName: 'InnovateTech Soluções', product: 'Pacote de Migração para Nuvem', value: 25000, status: 'em andamento', date: '2023-05-20' },
-  { id: '5', clientId: '4', clientName: 'NexaLogistics', product: 'Sistema de Gerenciamento de Frota', value: 35000, status: 'fechada', date: '2023-06-01' },
-  { id: '6', clientId: '5', clientName: 'Solaris Energia', product: 'Instalação de Painel Solar', value: 45000, status: 'perdida', date: '2023-06-15' },
-  { id: '7', clientId: '2', clientName: 'GreenLeaf Orgânicos', product: 'Campanha de Marketing', value: 5000, status: 'em andamento', date: '2023-07-01' },
-  { id: '8', clientId: '3', clientName: 'Quantum-Core IA', product: 'Contrato de Suporte', value: 10000, status: 'fechada', date: '2023-07-05' },
+  { id: '1', clientId: '1', clientName: 'InnovateTech Soluções', product: 'Serviço de Consultoria em IA', value: 15000, status: 'Fechada', date: '2023-02-01' },
+  { id: '2', clientId: '2', clientName: 'GreenLeaf Orgânicos', product: 'Assinatura de Produtos Orgânicos', value: 1200, status: 'Fechada', date: '2023-03-15' },
+  { id: '3', clientId: '3', clientName: 'Quantum-Core IA', product: 'Licença de Computação Quântica', value: 50000, status: 'Negociação', date: '2023-04-10' },
+  { id: '4', clientId: '1', clientName: 'InnovateTech Soluções', product: 'Pacote de Migração para Nuvem', value: 25000, status: 'Proposta enviada', date: '2023-05-20' },
+  { id: '5', clientId: '4', clientName: 'NexaLogistics', product: 'Sistema de Gerenciamento de Frota', value: 35000, status: 'Fechada', date: '2023-06-01' },
+  { id: '6', clientId: '5', clientName: 'Solaris Energia', product: 'Instalação de Painel Solar', value: 45000, status: 'Perdida', date: '2023-06-15' },
+  { id: '7', clientId: '2', clientName: 'GreenLeaf Orgânicos', product: 'Campanha de Marketing', value: 5000, status: 'Contato inicial', date: '2023-07-01' },
+  { id: '8', clientId: '3', clientName: 'Quantum-Core IA', product: 'Contrato de Suporte', value: 10000, status: 'Fechada', date: '2023-07-05' },
 ];
 
 export const engagements: Engagement[] = [

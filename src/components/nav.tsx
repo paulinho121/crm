@@ -10,6 +10,7 @@ import {
   UsersRound,
   TrendingUp,
   BellRing,
+  Landmark,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -28,7 +29,7 @@ const menuItems = [
   {
     href: '/sales',
     label: 'Vendas',
-    icon: TrendingUp,
+    icon: Landmark,
   },
   {
     href: '/reminders',

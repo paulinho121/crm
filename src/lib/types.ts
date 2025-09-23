@@ -15,7 +15,7 @@ export type Sale = {
   clientName: string;
   product: string;
   value: number;
-  status: "em andamento" | "fechada" | "perdida";
+  status: "Contato inicial" | "Proposta enviada" | "Negociação" | "Fechada" | "Perdida";
   date: string;
 };
 

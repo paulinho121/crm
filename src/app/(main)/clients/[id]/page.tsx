@@ -17,7 +17,7 @@ import {
   DollarSign,
   Activity,
   Wand2,
-} from 'lucide-radix';
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
   Table,
@@ -123,11 +123,11 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                         <TableCell>
                           <Badge
                             variant={
-                              sale.status === 'fechada'
+                              sale.status === 'Fechada'
                                 ? 'default'
-                                : sale.status === 'em andamento'
-                                ? 'secondary'
-                                : 'destructive'
+                                : sale.status === 'Perdida'
+                                ? 'destructive'
+                                : 'secondary'
                             }
                           >
                             {sale.status}
