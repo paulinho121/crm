@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'ClientTracker',
+  title: 'CRM MCI',
   description: 'CRM moderno para acompanhar seus clientes e vendas.',
 };
 

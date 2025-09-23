@@ -6,7 +6,7 @@ import {
   SidebarFooter,
   SidebarInset,
 } from '@/components/ui/sidebar';
-import { ClientTrackerLogo } from '@/components/icons';
+import { CrmMciLogo } from '@/components/icons';
 import { Nav } from '@/components/nav';
 import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
@@ -20,8 +20,8 @@ export default function MainLayout({
     <SidebarProvider>
       <Sidebar variant="inset" side="left" collapsible="icon">
         <SidebarHeader className="items-center justify-center p-4">
-          <ClientTrackerLogo className="size-7 text-primary" />
-          <span className="font-headline text-xl font-semibold">ClientTracker</span>
+          <CrmMciLogo className="size-7 text-primary" />
+          <span className="font-headline text-xl font-semibold">CRM MCI</span>
         </SidebarHeader>
         <SidebarContent>
           <Nav />

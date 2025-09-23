@@ -46,7 +46,7 @@ export function Header({ pageTitle }: HeaderProps) {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Avatar className="h-8 w-8">
                  {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" data-ai-hint={userAvatar.imageHint} />}
-                <AvatarFallback>CT</AvatarFallback>
+                <AvatarFallback>MCI</AvatarFallback>
               </Avatar>
               <span className="sr-only">Alternar menu de usuário</span>
             </Button>
