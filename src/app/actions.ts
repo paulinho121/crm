@@ -36,8 +36,23 @@ export async function createClient(values: z.infer<typeof clientSchema>) {
   }
 
   revalidatePath('/clients');
+  revalidatePath('/'); // Revalidate the dashboard page as well
 
   return {
     data: data,
   };
+}
+
+export async function deleteClient(clientId: string) {
+  const { error } = await supabase.from('clients').delete().eq('id', clientId);
+
+  if (error) {
+    console.error('Error deleting client:', error);
+    return {
+      error: 'Erro no banco de dados: Falha ao excluir o cliente.',
+    };
+  }
+
+  revalidatePath('/clients');
+  revalidatePath('/'); // Revalidate the dashboard page as well
 }
