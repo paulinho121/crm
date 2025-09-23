@@ -1,58 +1,67 @@
-import { CrmMciLogo } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
+'use client';
+
+import { createSupabaseBrowserClient } from '@/lib/supabase-browser';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { type AuthChangeEvent, type Session } from '@supabase/supabase-js';
 
 export default function LoginPage() {
+  const supabase = createSupabaseBrowserClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (event: AuthChangeEvent, session: Session | null) => {
+        if (session) {
+          router.push('/');
+        }
+      }
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [supabase, router]);
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background">
-      <Card className="w-full max-w-sm">
-        <CardHeader className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-                <CrmMciLogo className="size-8 text-primary" />
-                <span className="font-headline text-2xl font-semibold">CRM MCI</span>
-            </div>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Digite seu e-mail abaixo para acessar sua conta.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@exemplo.com" required />
-          </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Senha</Label>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
-                Esqueceu sua senha?
-              </Link>
-            </div>
-            <Input id="password" type="password" required />
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full" asChild>
-                <Link href="/dashboard">Entrar</Link>
-            </Button>
-            <div className="text-center text-sm">
-                Não tem uma conta?{' '}
-                <Link href="#" className="underline">
-                    Inscreva-se
-                </Link>
-            </div>
-        </CardFooter>
-      </Card>
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          providers={[]}
+          localization={{
+            variables: {
+              sign_in: {
+                email_label: 'Endereço de e-mail',
+                password_label: 'Sua senha',
+                email_input_placeholder: 'seu.email@exemplo.com',
+                button_label: 'Entrar',
+                social_provider_text: 'Entrar com',
+                link_text: 'Já tem uma conta? Entre',
+              },
+              sign_up: {
+                email_label: 'Endereço de e-mail',
+                password_label: 'Crie uma senha',
+                email_input_placeholder: 'seu.email@exemplo.com',
+                button_label: 'Cadastrar',
+                social_provider_text: 'Cadastrar com',
+                link_text: 'Não tem uma conta? Cadastre-se',
+              },
+              forgotten_password: {
+                email_label: 'Endereço de e-mail',
+                email_input_placeholder: 'seu.email@exemplo.com',
+                button_label: 'Enviar instruções de recuperação',
+                link_text: 'Esqueceu sua senha?',
+              },
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -4,27 +4,20 @@ import * as React from 'react';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { clients, sales as allSales } from '@/lib/data';
-import type { Sale } from '@/lib/types';
-import { PlusCircle, MoreHorizontal, DollarSign } from 'lucide-react';
+import type { Sale, Client } from '@/lib/types';
+import { PlusCircle, DollarSign } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
 import { Progress } from '@/components/ui/progress';
 
 type SalesKanbanBoardProps = {
   initialSales: Sale[];
+  initialClients: Client[];
 };
 
 const columns = [
@@ -36,7 +29,7 @@ const columns = [
 
 type Status = (typeof columns)[number];
 
-export function SalesKanbanBoard({ initialSales }: SalesKanbanBoardProps) {
+export function SalesKanbanBoard({ initialSales, initialClients }: SalesKanbanBoardProps) {
   const [sales, setSales] = React.useState(initialSales);
 
   const salesByStatus = React.useMemo(() => {
@@ -72,7 +65,7 @@ export function SalesKanbanBoard({ initialSales }: SalesKanbanBoardProps) {
           </div>
           <div className="flex-1 overflow-y-auto space-y-4 p-2 bg-secondary/50 rounded-lg">
             {salesByStatus[status].map((sale) => {
-              const client = clients.find((c) => c.id === sale.clientId);
+              const client = initialClients.find((c: Client) => c.id === sale.clientId);
               return (
                 <Card key={sale.id}>
                   <CardHeader className="p-4">

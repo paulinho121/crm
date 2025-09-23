@@ -1,5 +1,4 @@
 import { Header } from '@/components/header';
-import { clients, sales, engagements } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import {
   Card,
@@ -29,15 +28,35 @@ import {
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FollowUpSuggester } from '@/components/clients/follow-up-suggester';
+import { supabase } from '@/lib/supabase';
+import { Client, Sale, Engagement } from '@/lib/types';
 
-export default function ClientDetailPage({ params }: { params: { id: string } }) {
-  const client = clients.find((c) => c.id === params.id);
-  if (!client) {
+export default async function ClientDetailPage({ params }: { params: { id: string } }) {
+  const { data: client, error: clientError } = await supabase
+    .from('clients')
+    .select<string, Client>('*')
+    .eq('id', params.id)
+    .single();
+
+  if (clientError || !client) {
     notFound();
   }
 
-  const clientSales = sales.filter((s) => s.clientId === client.id);
-  const clientEngagements = engagements.filter((e) => e.clientId === client.id);
+  const { data: clientSales, error: salesError } = await supabase
+    .from('sales')
+    .select<string, Sale>('*')
+    .eq('clientId', client.id);
+
+  const { data: clientEngagements, error: engagementsError } = await supabase
+    .from('engagements')
+    .select<string, Engagement>('*')
+    .eq('clientId', client.id);
+
+  if (salesError || engagementsError) {
+    // Handle errors appropriately
+    console.error(salesError || engagementsError);
+    return <div>Error loading data.</div>; 
+  }
 
   return (
     <div className="flex flex-1 flex-col">
@@ -113,7 +132,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {clientSales.map((sale) => (
+                    {clientSales?.map((sale: Sale) => (
                       <TableRow key={sale.id}>
                         <TableCell>{sale.product}</TableCell>
                         <TableCell>${sale.value.toLocaleString('pt-BR')}</TableCell>
@@ -146,7 +165,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                 <CardTitle>Registro de Engajamento</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {clientEngagements.map((engagement) => (
+                {clientEngagements?.map((engagement: Engagement) => (
                   <div key={engagement.id} className="flex gap-4">
                     <div className="flex flex-col items-center">
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
@@ -164,7 +183,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
             </Card>
           </TabsContent>
           <TabsContent value="ai">
-            <FollowUpSuggester clientName={client.name} engagements={clientEngagements} sales={clientSales} />
+            <FollowUpSuggester clientName={client.name} engagements={clientEngagements || []} sales={clientSales || []} />
           </TabsContent>
         </Tabs>
       </main>

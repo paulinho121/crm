@@ -1,14 +1,23 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UsersRound, DollarSign, TrendingUp, Activity } from 'lucide-react';
-import { clients, sales } from '@/lib/data';
+import type { Sale, Client } from '@/lib/types';
 
-export function Stats() {
+type StatsProps = {
+  sales: Sale[];
+  clients: Client[];
+};
+
+export function Stats({ sales, clients }: StatsProps) {
   const totalClients = clients.length;
-  const closedSales = sales.filter((s) => s.status === 'fechada').length;
+  const closedSales = sales.filter((s) => s.status === 'Fechada').length;
   const totalRevenue = sales
-    .filter((s) => s.status === 'fechada')
+    .filter((s) => s.status === 'Fechada')
     .reduce((acc, s) => acc + s.value, 0);
-  const ongoingSales = sales.filter((s) => s.status === 'em andamento').length;
+  const ongoingSales = sales.filter(
+    (s) => s.status !== 'Fechada' && s.status !== 'Perdida'
+  ).length;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

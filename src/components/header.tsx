@@ -1,6 +1,4 @@
-import {
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,18 +8,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Search } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Search, User } from 'lucide-react';
 import { Input } from './ui/input';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 type HeaderProps = {
   pageTitle: string;
 };
 
 export function Header({ pageTitle }: HeaderProps) {
-  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
-
   return (
     <header className="flex h-16 items-center gap-4 border-b bg-card px-4 md:px-6 shrink-0">
       <div className="flex items-center gap-2">
@@ -45,8 +40,9 @@ export function Header({ pageTitle }: HeaderProps) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
               <Avatar className="h-8 w-8">
-                 {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" data-ai-hint={userAvatar.imageHint} />}
-                <AvatarFallback>MCI</AvatarFallback>
+                <AvatarFallback>
+                  <User className="h-5 w-5" />
+                </AvatarFallback>
               </Avatar>
               <span className="sr-only">Alternar menu de usuário</span>
             </Button>

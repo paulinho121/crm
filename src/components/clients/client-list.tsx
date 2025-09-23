@@ -18,7 +18,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { clients } from '@/lib/data';
 import type { Client } from '@/lib/types';
 import { PlusCircle, MoreHorizontal } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -30,9 +29,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { supabase } from '@/lib/supabase';
 
 export function ClientList() {
   const [isAddClientOpen, setIsAddClientOpen] = React.useState(false);
+  const [clients, setClients] = React.useState<Client[]>([]);
+
+  React.useEffect(() => {
+    const fetchClients = async () => {
+      const { data, error } = await supabase.from('clients').select('*');
+      if (error) {
+        console.error('Error fetching clients:', error);
+      } else {
+        setClients(data as Client[]);
+      }
+    };
+
+    fetchClients();
+  }, []);
 
   return (
     <Card>

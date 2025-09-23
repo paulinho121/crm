@@ -8,14 +8,18 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
-import { reminders } from '@/lib/data';
+import { Reminder } from '@/lib/types';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-export function RemindersOverview() {
-  const pendingReminders = reminders.filter((r) => r.status === 'pendente');
+type RemindersOverviewProps = {
+  reminders: Reminder[];
+};
+
+export function RemindersOverview({ reminders }: RemindersOverviewProps) {
+  const pendingReminders = reminders.filter((r: Reminder) => r.status === 'pendente');
 
   return (
     <Card>
@@ -35,7 +39,7 @@ export function RemindersOverview() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {pendingReminders.slice(0, 3).map((reminder) => (
+          {pendingReminders.slice(0, 3).map((reminder: Reminder) => (
             <div
               key={reminder.id}
               className="flex items-center gap-4 p-2 rounded-lg hover:bg-secondary"

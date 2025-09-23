@@ -7,15 +7,19 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { reminders } from '@/lib/data';
+import { Reminder } from '@/lib/types';
 import { BellRing, CheckCircle2 } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-export function RemindersList() {
-  const pendingReminders = reminders.filter((r) => r.status === 'pendente');
-  const completedReminders = reminders.filter((r) => r.status === 'concluído');
+type RemindersListProps = {
+  reminders: Reminder[];
+};
+
+export function RemindersList({ reminders }: RemindersListProps) {
+  const pendingReminders = reminders.filter((r: Reminder) => r.status === 'pendente');
+  const completedReminders = reminders.filter((r: Reminder) => r.status === 'concluído');
 
   return (
     <div className="grid gap-6 md:grid-cols-2">

@@ -1,15 +1,6 @@
 'use client';
 
-import { TrendingUp } from 'lucide-react';
-import {
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-} from 'recharts';
-
+import { Line, LineChart, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import {
   Card,
   CardContent,
@@ -22,15 +13,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-
-const chartData = [
-  { month: 'Janeiro', revenue: 18600 },
-  { month: 'Fevereiro', revenue: 30500 },
-  { month: 'Março', revenue: 23700 },
-  { month: 'Abril', revenue: 7300 },
-  { month: 'Maio', revenue: 20900 },
-  { month: 'Junho', revenue: 21400 },
-];
+import { Sale } from '@/lib/types';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const chartConfig = {
   revenue: {
@@ -39,7 +24,30 @@ const chartConfig = {
   },
 };
 
-export function SalesChart() {
+type SalesChartProps = {
+  sales: Sale[];
+};
+
+export function SalesChart({ sales }: SalesChartProps) {
+  const salesByMonth = sales.filter(s => s.status === 'Fechada').reduce((acc, sale) => {
+      const monthName = format(new Date(sale.date), 'MMMM', { locale: ptBR });
+      const capitalizedMonth = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+      acc[capitalizedMonth] = (acc[capitalizedMonth] || 0) + sale.value;
+      return acc;
+    }, {} as Record<string, number>);
+
+  const chartData = [
+      { month: 'Janeiro', revenue: 0 },
+      { month: 'Fevereiro', revenue: 0 },
+      { month: 'Março', revenue: 0 },
+      { month: 'Abril', revenue: 0 },
+      { month: 'Maio', revenue: 0 },
+      { month: 'Junho', revenue: 0 },
+    ].map(item => ({
+        ...item,
+        revenue: salesByMonth[item.month] || 0
+    }));
+
   return (
     <Card>
       <CardHeader>
