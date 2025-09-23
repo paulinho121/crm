@@ -24,17 +24,17 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-  { month: 'January', revenue: 18600 },
-  { month: 'February', revenue: 30500 },
-  { month: 'March', revenue: 23700 },
-  { month: 'April', revenue: 7300 },
-  { month: 'May', revenue: 20900 },
-  { month: 'June', revenue: 21400 },
+  { month: 'Janeiro', revenue: 18600 },
+  { month: 'Fevereiro', revenue: 30500 },
+  { month: 'Março', revenue: 23700 },
+  { month: 'Abril', revenue: 7300 },
+  { month: 'Maio', revenue: 20900 },
+  { month: 'Junho', revenue: 21400 },
 ];
 
 const chartConfig = {
   revenue: {
-    label: 'Revenue',
+    label: 'Receita',
     color: 'hsl(var(--primary))',
   },
 };
@@ -43,8 +43,8 @@ export function SalesChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sales Overview</CardTitle>
-        <CardDescription>January - June 2023</CardDescription>
+        <CardTitle>Visão Geral de Vendas</CardTitle>
+        <CardDescription>Janeiro - Junho 2023</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[250px] w-full">
@@ -57,7 +57,7 @@ export function SalesChart() {
               tickMargin={8}
             />
             <YAxis
-              tickFormatter={(value) => `$${value / 1000}k`}
+              tickFormatter={(value) => `R$${value / 1000}k`}
               tickLine={false}
               axisLine={false}
             />

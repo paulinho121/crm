@@ -17,22 +17,22 @@ import Link from 'next/link';
 const menuItems = [
   {
     href: '/dashboard',
-    label: 'Dashboard',
+    label: 'Painel',
     icon: LayoutDashboard,
   },
   {
     href: '/clients',
-    label: 'Clients',
+    label: 'Clientes',
     icon: UsersRound,
   },
   {
     href: '/sales',
-    label: 'Sales',
+    label: 'Vendas',
     icon: TrendingUp,
   },
   {
     href: '/reminders',
-    label: 'Reminders',
+    label: 'Lembretes',
     icon: BellRing,
   },
 ];

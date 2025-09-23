@@ -15,7 +15,7 @@ export type Sale = {
   clientName: string;
   product: string;
   value: number;
-  status: "ongoing" | "closed" | "lost";
+  status: "em andamento" | "fechada" | "perdida";
   date: string;
 };
 
@@ -23,7 +23,7 @@ export type Engagement = {
   id: string;
   clientId: string;
   date: string;
-  type: "Email" | "Call" | "Meeting";
+  type: "Email" | "Ligação" | "Reunião";
   notes: string;
 };
 
@@ -33,5 +33,5 @@ export type Reminder = {
   clientName: string;
   title: string;
   date: string;
-  status: "pending" | "completed";
+  status: "pendente" | "concluído";
 };

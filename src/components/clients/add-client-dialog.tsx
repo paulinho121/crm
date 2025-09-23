@@ -24,11 +24,11 @@ import {
 import { useToast } from '@/hooks/use-toast';
 
 const clientSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Invalid phone number'),
-  document: z.string().min(11, 'Invalid document (CPF/CNPJ)'),
-  address: z.string().min(5, 'Address is required'),
+  name: z.string().min(2, 'Nome é obrigatório'),
+  email: z.string().email('Endereço de e-mail inválido'),
+  phone: z.string().min(10, 'Número de telefone inválido'),
+  document: z.string().min(11, 'Documento inválido (CPF/CNPJ)'),
+  address: z.string().min(5, 'Endereço é obrigatório'),
 });
 
 type AddClientDialogProps = {
@@ -53,8 +53,8 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
     // In a real app, you would send this data to your server
     console.log(values);
     toast({
-      title: 'Client Created',
-      description: `${values.name} has been successfully added.`,
+      title: 'Cliente Criado',
+      description: `${values.name} foi adicionado com sucesso.`,
     });
     onOpenChange(false);
     form.reset();
@@ -64,9 +64,9 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Client</DialogTitle>
+          <DialogTitle>Adicionar Novo Cliente</DialogTitle>
           <DialogDescription>
-            Fill in the details below to register a new client.
+            Preencha os detalhes abaixo para registrar um novo cliente.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -76,9 +76,9 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="Client's full name" {...field} />
+                    <Input placeholder="Nome completo do cliente" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,7 +91,7 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="contact@client.com" {...field} />
+                    <Input type="email" placeholder="contato@cliente.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +102,7 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Telefone</FormLabel>
                   <FormControl>
                     <Input placeholder="(99) 99999-9999" {...field} />
                   </FormControl>
@@ -128,17 +128,17 @@ export function AddClientDialog({ open, onOpenChange }: AddClientDialogProps) {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Endereço</FormLabel>
                   <FormControl>
-                    <Input placeholder="Street, Number, City, State" {...field} />
+                    <Input placeholder="Rua, Número, Cidade, Estado" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
              <DialogFooter>
-                <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
-                <Button type="submit">Create Client</Button>
+                <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>Cancelar</Button>
+                <Button type="submit">Criar Cliente</Button>
             </DialogFooter>
           </form>
         </Form>

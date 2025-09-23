@@ -6,7 +6,7 @@ import { RemindersOverview } from '@/components/dashboard/reminders-overview';
 export default function DashboardPage() {
   return (
     <div className="flex flex-1 flex-col">
-      <Header pageTitle="Dashboard" />
+      <Header pageTitle="Painel" />
       <main className="flex-1 space-y-6 p-4 md:p-6">
         <Stats />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">

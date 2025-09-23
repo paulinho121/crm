@@ -12,22 +12,23 @@ import { reminders } from '@/lib/data';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export function RemindersOverview() {
-  const pendingReminders = reminders.filter((r) => r.status === 'pending');
+  const pendingReminders = reminders.filter((r) => r.status === 'pendente');
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div>
-          <CardTitle>Pending Reminders</CardTitle>
+          <CardTitle>Lembretes Pendentes</CardTitle>
           <CardDescription>
-            You have {pendingReminders.length} upcoming tasks.
+            Você tem {pendingReminders.length} tarefas futuras.
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
           <Link href="/reminders">
-            View All
+            Ver Todos
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
@@ -47,12 +48,12 @@ export function RemindersOverview() {
                   {reminder.title}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  For {reminder.clientName}
+                  Para {reminder.clientName}
                 </p>
               </div>
               <div className="ml-auto font-medium">
                 <Badge variant="outline">
-                  {format(new Date(reminder.date), 'MMM dd')}
+                  {format(new Date(reminder.date), 'dd MMM', { locale: ptBR })}
                 </Badge>
               </div>
             </div>

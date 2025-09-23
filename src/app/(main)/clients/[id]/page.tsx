@@ -41,7 +41,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
 
   return (
     <div className="flex flex-1 flex-col">
-      <Header pageTitle="Client Details" />
+      <Header pageTitle="Detalhes do Cliente" />
       <main className="flex-1 space-y-6 p-4 md:p-6">
         <Card>
           <CardHeader>
@@ -55,8 +55,8 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                   {client.name}
                 </CardTitle>
                 <CardDescription>
-                  Client since{' '}
-                  {new Date(client.createdAt).toLocaleDateString()}
+                  Cliente desde{' '}
+                  {new Date(client.createdAt).toLocaleDateString('pt-BR')}
                 </CardDescription>
               </div>
             </div>
@@ -88,27 +88,27 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
         <Tabs defaultValue="sales">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="sales">
-              <DollarSign className="mr-2 h-4 w-4" /> Sales History
+              <DollarSign className="mr-2 h-4 w-4" /> Histórico de Vendas
             </TabsTrigger>
             <TabsTrigger value="engagements">
-              <Activity className="mr-2 h-4 w-4" /> Engagement Log
+              <Activity className="mr-2 h-4 w-4" /> Registro de Engajamento
             </TabsTrigger>
             <TabsTrigger value="ai">
-              <Wand2 className="mr-2 h-4 w-4" /> AI Follow-up
+              <Wand2 className="mr-2 h-4 w-4" /> Acompanhamento com IA
             </TabsTrigger>
           </TabsList>
           <TabsContent value="sales">
             <Card>
               <CardHeader>
-                <CardTitle>Sales History</CardTitle>
+                <CardTitle>Histórico de Vendas</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead>Value</TableHead>
-                      <TableHead>Date</TableHead>
+                      <TableHead>Produto</TableHead>
+                      <TableHead>Valor</TableHead>
+                      <TableHead>Data</TableHead>
                       <TableHead>Status</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -116,16 +116,16 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                     {clientSales.map((sale) => (
                       <TableRow key={sale.id}>
                         <TableCell>{sale.product}</TableCell>
-                        <TableCell>${sale.value.toLocaleString()}</TableCell>
+                        <TableCell>${sale.value.toLocaleString('pt-BR')}</TableCell>
                         <TableCell>
-                          {new Date(sale.date).toLocaleDateString()}
+                          {new Date(sale.date).toLocaleDateString('pt-BR')}
                         </TableCell>
                         <TableCell>
                           <Badge
                             variant={
-                              sale.status === 'closed'
+                              sale.status === 'fechada'
                                 ? 'default'
-                                : sale.status === 'ongoing'
+                                : sale.status === 'em andamento'
                                 ? 'secondary'
                                 : 'destructive'
                             }
@@ -143,7 +143,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
           <TabsContent value="engagements">
             <Card>
               <CardHeader>
-                <CardTitle>Engagement Log</CardTitle>
+                <CardTitle>Registro de Engajamento</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {clientEngagements.map((engagement) => (
@@ -155,7 +155,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                         <div className="flex-1 w-px bg-border"></div>
                     </div>
                     <div>
-                      <p className="font-medium">{engagement.type} on {new Date(engagement.date).toLocaleDateString()}</p>
+                      <p className="font-medium">{engagement.type} em {new Date(engagement.date).toLocaleDateString('pt-BR')}</p>
                       <p className="text-muted-foreground">{engagement.notes}</p>
                     </div>
                   </div>

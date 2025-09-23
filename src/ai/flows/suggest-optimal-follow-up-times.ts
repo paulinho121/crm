@@ -13,9 +13,9 @@ import {z} from 'genkit';
 const SuggestOptimalFollowUpTimesInputSchema = z.object({
   engagementLogs: z
     .string()
-    .describe('Recent engagement logs with the client.'),
-  salesData: z.string().describe('Sales data for the client.'),
-  clientName: z.string().describe('The name of the client.'),
+    .describe('Registros de engajamento recentes com o cliente.'),
+  salesData: z.string().describe('Dados de vendas para o cliente.'),
+  clientName: z.string().describe('O nome do cliente.'),
 });
 export type SuggestOptimalFollowUpTimesInput =
   z.infer<typeof SuggestOptimalFollowUpTimesInputSchema>;
@@ -24,11 +24,11 @@ const SuggestOptimalFollowUpTimesOutputSchema = z.object({
   suggestedFollowUpTimes: z
     .string()
     .describe(
-      'Suggested optimal times for follow-ups with the client, formatted as a comma-separated list of datetimes.'
+      'Horários ideais sugeridos para acompanhamento com o cliente, formatados como uma lista de data e hora separadas por vírgula.'
     ),
   reasoning: z
     .string()
-    .describe('Reasoning behind the suggested follow-up times.'),
+    .describe('Justificativa por trás dos horários de acompanhamento sugeridos.'),
 });
 export type SuggestOptimalFollowUpTimesOutput =
   z.infer<typeof SuggestOptimalFollowUpTimesOutputSchema>;
@@ -43,14 +43,14 @@ const prompt = ai.definePrompt({
   name: 'suggestOptimalFollowUpTimesPrompt',
   input: {schema: SuggestOptimalFollowUpTimesInputSchema},
   output: {schema: SuggestOptimalFollowUpTimesOutputSchema},
-  prompt: `You are an AI sales assistant. Your goal is to analyze client engagement logs and sales data and suggest optimal times for follow-ups.
+  prompt: `Você é um assistente de vendas de IA. Seu objetivo é analisar os registros de engajamento do cliente e os dados de vendas e sugerir os melhores horários para acompanhamento.
 
-  Client Name: {{{clientName}}}
-  Engagement Logs: {{{engagementLogs}}}
-  Sales Data: {{{salesData}}}
+  Nome do Cliente: {{{clientName}}}
+  Registros de Engajamento: {{{engagementLogs}}}
+  Dados de Vendas: {{{salesData}}}
 
-  Based on the provided information, suggest optimal times for follow-ups with the client. Provide a brief reasoning for your suggestions.
-  Format the suggested follow-up times as a comma-separated list of datetimes.
+  Com base nas informações fornecidas, sugira os melhores horários para acompanhamento com o cliente. Forneça uma breve justificativa para suas sugestões.
+  Formate os horários de acompanhamento sugeridos como uma lista de data e hora separadas por vírgula.
 `,
 });
 

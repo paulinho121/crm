@@ -4,54 +4,54 @@ import { clients, sales } from '@/lib/data';
 
 export function Stats() {
   const totalClients = clients.length;
-  const closedSales = sales.filter((s) => s.status === 'closed').length;
+  const closedSales = sales.filter((s) => s.status === 'fechada').length;
   const totalRevenue = sales
-    .filter((s) => s.status === 'closed')
+    .filter((s) => s.status === 'fechada')
     .reduce((acc, s) => acc + s.value, 0);
-  const ongoingSales = sales.filter((s) => s.status === 'ongoing').length;
+  const ongoingSales = sales.filter((s) => s.status === 'em andamento').length;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Clients</CardTitle>
+          <CardTitle className="text-sm font-medium">Total de Clientes</CardTitle>
           <UsersRound className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{totalClients}</div>
-          <p className="text-xs text-muted-foreground">+5 from last month</p>
+          <p className="text-xs text-muted-foreground">+5 do mês passado</p>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Closed Sales</CardTitle>
+          <CardTitle className="text-sm font-medium">Vendas Fechadas</CardTitle>
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{closedSales}</div>
-          <p className="text-xs text-muted-foreground">+10% from last month</p>
+          <p className="text-xs text-muted-foreground">+10% do mês passado</p>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+          <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
-            ${totalRevenue.toLocaleString()}
+            R${totalRevenue.toLocaleString('pt-BR')}
           </div>
-          <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+          <p className="text-xs text-muted-foreground">+20.1% do mês passado</p>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Ongoing Sales</CardTitle>
+          <CardTitle className="text-sm font-medium">Vendas em Andamento</CardTitle>
           <Activity className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{ongoingSales}</div>
-          <p className="text-xs text-muted-foreground">3 currently active</p>
+          <p className="text-xs text-muted-foreground">3 atualmente ativas</p>
         </CardContent>
       </Card>
     </div>

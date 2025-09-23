@@ -29,7 +29,7 @@ export default function MainLayout({
         <SidebarFooter>
           <Button variant="ghost" className="w-full justify-start gap-2">
             <Settings className="size-4" />
-            <span>Settings</span>
+            <span>Configurações</span>
           </Button>
         </SidebarFooter>
       </Sidebar>

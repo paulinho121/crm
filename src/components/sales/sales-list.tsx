@@ -24,19 +24,19 @@ export function SalesList() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>All Sales</CardTitle>
+        <CardTitle>Todas as Vendas</CardTitle>
         <CardDescription>
-          A complete overview of all sales transactions.
+          Uma visão completa de todas as transações de vendas.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Client</TableHead>
-              <TableHead>Product</TableHead>
-              <TableHead>Value</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>Cliente</TableHead>
+              <TableHead>Produto</TableHead>
+              <TableHead>Valor</TableHead>
+              <TableHead>Data</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
@@ -45,14 +45,14 @@ export function SalesList() {
               <TableRow key={sale.id}>
                 <TableCell>{sale.clientName}</TableCell>
                 <TableCell>{sale.product}</TableCell>
-                <TableCell>${sale.value.toLocaleString()}</TableCell>
-                <TableCell>{new Date(sale.date).toLocaleDateString()}</TableCell>
+                <TableCell>R${sale.value.toLocaleString('pt-BR')}</TableCell>
+                <TableCell>{new Date(sale.date).toLocaleDateString('pt-BR')}</TableCell>
                 <TableCell>
                   <Badge
                     variant={
-                      sale.status === 'closed'
+                      sale.status === 'fechada'
                         ? 'default'
-                        : sale.status === 'ongoing'
+                        : sale.status === 'em andamento'
                         ? 'secondary'
                         : 'destructive'
                     }

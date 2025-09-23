@@ -39,7 +39,7 @@ export function FollowUpSuggester({
     .join('\n');
 
   const salesData = sales
-    .map((s) => `[${s.date}]: ${s.product} for $${s.value} - Status: ${s.status}`)
+    .map((s) => `[${s.date}]: ${s.product} por R$${s.value} - Status: ${s.status}`)
     .join('\n');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,7 +56,7 @@ export function FollowUpSuggester({
       } catch (error) {
         toast({
           variant: 'destructive',
-          title: 'Error',
+          title: 'Erro',
           description: (error as Error).message,
         });
       }
@@ -66,17 +66,17 @@ export function FollowUpSuggester({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Intelligent Follow-Up</CardTitle>
+        <CardTitle>Acompanhamento Inteligente</CardTitle>
         <CardDescription>
-          Use AI to analyze client data and suggest the best times to
-          follow up.
+          Use IA para analisar dados do cliente e sugerir os melhores horários para
+          acompanhamento.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="engagement-logs">Engagement Logs</Label>
+              <Label htmlFor="engagement-logs">Registros de Engajamento</Label>
               <Textarea
                 id="engagement-logs"
                 readOnly
@@ -85,7 +85,7 @@ export function FollowUpSuggester({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="sales-data">Sales Data</Label>
+              <Label htmlFor="sales-data">Dados de Vendas</Label>
               <Textarea
                 id="sales-data"
                 readOnly
@@ -97,10 +97,10 @@ export function FollowUpSuggester({
           {suggestion && (
             <Alert>
                 <Wand2 className="h-4 w-4" />
-              <AlertTitle>AI Suggestion</AlertTitle>
+              <AlertTitle>Sugestão da IA</AlertTitle>
               <AlertDescription className="space-y-2">
-                <p><strong>Suggested Times:</strong> {suggestion.suggestedFollowUpTimes}</p>
-                <p><strong>Reasoning:</strong> {suggestion.reasoning}</p>
+                <p><strong>Horários Sugeridos:</strong> {suggestion.suggestedFollowUpTimes}</p>
+                <p><strong>Justificativa:</strong> {suggestion.reasoning}</p>
               </AlertDescription>
             </Alert>
           )}
@@ -112,7 +112,7 @@ export function FollowUpSuggester({
             ) : (
               <Wand2 className="mr-2 h-4 w-4" />
             )}
-            Generate Suggestions
+            Gerar Sugestões
           </Button>
         </CardFooter>
       </form>

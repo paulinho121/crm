@@ -11,18 +11,19 @@ import { reminders } from '@/lib/data';
 import { BellRing, CheckCircle2 } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export function RemindersList() {
-  const pendingReminders = reminders.filter((r) => r.status === 'pending');
-  const completedReminders = reminders.filter((r) => r.status === 'completed');
+  const pendingReminders = reminders.filter((r) => r.status === 'pendente');
+  const completedReminders = reminders.filter((r) => r.status === 'concluído');
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Pending Reminders</CardTitle>
+          <CardTitle>Lembretes Pendentes</CardTitle>
           <CardDescription>
-            Tasks you need to complete.
+            Tarefas que você precisa concluir.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -40,7 +41,7 @@ export function RemindersList() {
               </div>
               <div className="ml-auto">
                 <Badge>
-                  {format(new Date(reminder.date), 'MMM dd, yyyy')}
+                  {format(new Date(reminder.date), 'dd MMM, yyyy', { locale: ptBR })}
                 </Badge>
               </div>
             </div>
@@ -49,9 +50,9 @@ export function RemindersList() {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Completed Reminders</CardTitle>
+          <CardTitle>Lembretes Concluídos</CardTitle>
           <CardDescription>
-            Tasks that you have already finished.
+            Tarefas que você já finalizou.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -69,7 +70,7 @@ export function RemindersList() {
               </div>
                <div className="ml-auto">
                 <Badge variant="secondary">
-                  {format(new Date(reminder.date), 'MMM dd, yyyy')}
+                  {format(new Date(reminder.date), 'dd MMM, yyyy', { locale: ptBR })}
                 </Badge>
               </div>
             </div>

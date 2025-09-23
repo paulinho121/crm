@@ -38,9 +38,9 @@ export function ClientList() {
     <Card>
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
-          <CardTitle>Clients</CardTitle>
+          <CardTitle>Clientes</CardTitle>
           <CardDescription>
-            Manage your clients and view their sales history.
+            Gerencie seus clientes e veja o histórico de vendas deles.
           </CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-2">
@@ -51,7 +51,7 @@ export function ClientList() {
           >
             <PlusCircle className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              New Client
+              Novo Cliente
             </span>
           </Button>
         </div>
@@ -60,13 +60,13 @@ export function ClientList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Client</TableHead>
-              <TableHead className="hidden md:table-cell">Phone</TableHead>
+              <TableHead>Cliente</TableHead>
+              <TableHead className="hidden md:table-cell">Telefone</TableHead>
               <TableHead className="hidden md:table-cell">
-                Member Since
+                Membro Desde
               </TableHead>
               <TableHead>
-                <span className="sr-only">Actions</span>
+                <span className="sr-only">Ações</span>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -94,7 +94,7 @@ export function ClientList() {
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
                   <Badge variant="outline">
-                    {new Date(client.createdAt).toLocaleDateString()}
+                    {new Date(client.createdAt).toLocaleDateString('pt-BR')}
                   </Badge>
                 </TableCell>
                 <TableCell>
@@ -102,15 +102,15 @@ export function ClientList() {
                     <DropdownMenuTrigger asChild>
                       <Button aria-haspopup="true" size="icon" variant="ghost">
                         <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">Alternar menu</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem asChild>
-                        <Link href={`/clients/${client.id}`}>View Details</Link>
+                        <Link href={`/clients/${client.id}`}>Ver Detalhes</Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem>Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

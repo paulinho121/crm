@@ -15,6 +15,6 @@ export async function getFollowUpSuggestions(
   } catch (error) {
     console.error('Error getting follow-up suggestions:', error);
     // In a real app, you'd want more robust error handling and logging.
-    throw new Error('Failed to get AI-powered suggestions. Please try again later.');
+    throw new Error('Falha ao obter sugestões da IA. Por favor, tente novamente mais tarde.');
   }
 }
