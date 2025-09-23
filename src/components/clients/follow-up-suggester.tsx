@@ -17,7 +17,6 @@ import type { Engagement, Sale } from '@/lib/types';
 import { Wand2, LoaderCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { useToast } from '@/hooks/use-toast';
-import type { SuggestOptimalFollowUpTimesOutput } from '@/ai/flows/suggest-optimal-follow-up-times';
 
 type FollowUpSuggesterProps = {
   clientName: string;
@@ -32,7 +31,7 @@ export function FollowUpSuggester({
 }: FollowUpSuggesterProps) {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
-  const [suggestion, setSuggestion] = useState<SuggestOptimalFollowUpTimesOutput | null>(null);
+  const [suggestion, setSuggestion] = useState<any | null>(null);
 
   const engagementLogs = engagements
     .map((e) => `[${e.date} ${e.type}]: ${e.notes}`)
