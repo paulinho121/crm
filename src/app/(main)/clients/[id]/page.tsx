@@ -15,7 +15,6 @@ import {
   FileText,
   DollarSign,
   Activity,
-  Wand2,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -27,7 +26,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { FollowUpSuggester } from '@/components/clients/follow-up-suggester';
 import { supabase } from '@/lib/supabase';
 import { Client, Sale, Engagement } from '@/lib/types';
 
@@ -105,15 +103,12 @@ export default async function ClientDetailPage({ params }: { params: { id: strin
         </Card>
 
         <Tabs defaultValue="sales">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="sales">
               <DollarSign className="mr-2 h-4 w-4" /> Histórico de Vendas
             </TabsTrigger>
             <TabsTrigger value="engagements">
               <Activity className="mr-2 h-4 w-4" /> Registro de Engajamento
-            </TabsTrigger>
-            <TabsTrigger value="ai">
-              <Wand2 className="mr-2 h-4 w-4" /> Acompanhamento com IA
             </TabsTrigger>
           </TabsList>
           <TabsContent value="sales">
@@ -181,9 +176,6 @@ export default async function ClientDetailPage({ params }: { params: { id: strin
                 ))}
               </CardContent>
             </Card>
-          </TabsContent>
-          <TabsContent value="ai">
-            <FollowUpSuggester clientName={client.name} engagements={clientEngagements || []} sales={clientSales || []} />
           </TabsContent>
         </Tabs>
       </main>
