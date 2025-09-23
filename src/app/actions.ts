@@ -56,3 +56,34 @@ export async function deleteClient(clientId: string) {
   revalidatePath('/clients');
   revalidatePath('/'); // Revalidate the dashboard page as well
 }
+
+export async function updateClient(clientId: string, values: z.infer<typeof clientSchema>) {
+  const validatedFields = clientSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      error: 'Campos inválidos!',
+    };
+  }
+
+  const { data, error } = await supabase
+    .from('clients')
+    .update(validatedFields.data)
+    .eq('id', clientId)
+    .select();
+
+  if (error) {
+    console.error('Error updating client:', error);
+    return {
+      error: 'Erro no banco de dados: Falha ao atualizar o cliente.',
+    };
+  }
+
+  revalidatePath('/clients');
+  revalidatePath(`/clients/${clientId}`);
+  revalidatePath('/');
+
+  return {
+    data: data,
+  };
+}

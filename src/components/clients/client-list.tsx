@@ -33,6 +33,7 @@ import { PlusCircle, MoreHorizontal } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { AddClientDialog } from './add-client-dialog';
+import { EditClientDialog } from './edit-client-dialog'; // Import the new dialog
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,15 +46,30 @@ import { deleteClient } from '@/app/actions';
 
 export function ClientList() {
   const [isAddClientOpen, setIsAddClientOpen] = React.useState(false);
+  const [isEditClientOpen, setIsEditClientOpen] = React.useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = React.useState(false);
+  const [clientToEdit, setClientToEdit] = React.useState<Client | null>(null);
   const [clientToDelete, setClientToDelete] = React.useState<Client | null>(null);
   const [clients, setClients] = React.useState<Client[]>([]);
   const [isPending, startTransition] = React.useTransition();
   const { toast } = useToast();
 
   React.useEffect(() => {
+    const channel = supabase
+      .channel('realtime clients')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'clients' },
+        (payload) => {
+          // console.log('Change received!', payload)
+          // Simple refetch for now
+          fetchClients();
+        }
+      )
+      .subscribe();
+
     const fetchClients = async () => {
-      const { data, error } = await supabase.from('clients').select('*');
+      const { data, error } = await supabase.from('clients').select('*').order('createdAt', { ascending: false });
       if (error) {
         console.error('Error fetching clients:', error);
       } else {
@@ -62,7 +78,16 @@ export function ClientList() {
     };
 
     fetchClients();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
+
+  const handleEditClick = (client: Client) => {
+    setClientToEdit(client);
+    setIsEditClientOpen(true);
+  };
 
   const handleDeleteClick = (client: Client) => {
     setClientToDelete(client);
@@ -86,8 +111,6 @@ export function ClientList() {
           title: 'Cliente Excluído',
           description: `${clientToDelete.name} foi excluído com sucesso.`,
         });
-        // Optimistic update
-        setClients(clients.filter(c => c.id !== clientToDelete.id));
       }
       
       setIsDeleteAlertOpen(false);
@@ -171,7 +194,9 @@ export function ClientList() {
                         <DropdownMenuItem asChild>
                           <Link href={`/clients/${client.id}`}>Ver Detalhes</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Editar</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleEditClick(client)}>
+                          Editar
+                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDeleteClick(client)}>
                           Excluir
                         </DropdownMenuItem>
@@ -184,6 +209,7 @@ export function ClientList() {
           </Table>
         </CardContent>
         <AddClientDialog open={isAddClientOpen} onOpenChange={setIsAddClientOpen} />
+        <EditClientDialog client={clientToEdit} open={isEditClientOpen} onOpenChange={setIsEditClientOpen} />
       </Card>
       
       <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
