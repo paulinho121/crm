@@ -6,6 +6,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { type AuthChangeEvent, type Session } from '@supabase/supabase-js';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const supabase = createSupabaseBrowserClient();
@@ -30,6 +31,18 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <div className="text-center">
+          <Image
+            src="/logo.png"
+            alt="CRM MCI Logo"
+            width={150}
+            height={50}
+            className="mx-auto"
+          />
+          <h1 className="mt-6 text-3xl font-extrabold text-gray-900">
+            CRM MCI
+          </h1>
+        </div>
         <Auth
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
