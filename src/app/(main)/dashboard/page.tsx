@@ -20,9 +20,9 @@ export default async function DashboardPage() {
     }
   );
 
-  const { data: sales, error: salesError } = await supabase.from('sales').select<string, Sale>('*');
-  const { data: reminders, error: remindersError } = await supabase.from('reminders').select<string, Reminder>('*');
-  const { data: clients, error: clientsError } = await supabase.from('clients').select<string, Client>('*');
+  const { data: sales, error: salesError } = await supabase.from('sales').select('*').returns<Sale[]>();
+  const { data: reminders, error: remindersError } = await supabase.from('reminders').select('*').returns<Reminder[]>();
+  const { data: clients, error: clientsError } = await supabase.from('clients').select('*').returns<Client[]>();
 
   if (salesError || remindersError || clientsError) {
     console.error('Error fetching data:', salesError || remindersError || clientsError);
