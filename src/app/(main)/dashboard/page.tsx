@@ -2,10 +2,24 @@ import { Header } from '@/components/header';
 import { Stats } from '@/components/dashboard/stats';
 import { SalesChart } from '@/components/dashboard/sales-chart';
 import { RemindersOverview } from '@/components/dashboard/reminders-overview';
-import { supabase } from '@/lib/supabase';
 import { Sale, Reminder, Client } from '@/lib/types';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 export default async function DashboardPage() {
+  const cookieStore = cookies();
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
+
   const { data: sales, error: salesError } = await supabase.from('sales').select<string, Sale>('*');
   const { data: reminders, error: remindersError } = await supabase.from('reminders').select<string, Reminder>('*');
   const { data: clients, error: clientsError } = await supabase.from('clients').select<string, Client>('*');

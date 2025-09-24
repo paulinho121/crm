@@ -1,6 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://inklaylneesgvhxragxx.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlua2xheWxuZWVzZ3ZoeHJhZ3h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1MDMzMDIsImV4cCI6MjA3MzA3OTMwMn0.YwRt-tp6c4bLrCJXYkgmHRFEUco6A9SvAh8visY4FEc';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase URL or Anon Key');
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

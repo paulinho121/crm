@@ -45,6 +45,13 @@ export function EditClientDialog({ client, open, onOpenChange }: EditClientDialo
   const { toast } = useToast();
   const form = useForm<z.infer<typeof clientSchema>>({
     resolver: zodResolver(clientSchema),
+    defaultValues: {
+        name: client?.name || '',
+        email: client?.email || '',
+        phone: client?.phone || '',
+        document: client?.document || '',
+        address: client?.address || '',
+      },
   });
 
   React.useEffect(() => {

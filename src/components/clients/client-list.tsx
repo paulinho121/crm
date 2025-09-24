@@ -161,7 +161,6 @@ export function ClientList() {
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <Avatar className="hidden h-9 w-9 sm:flex">
-                        <AvatarImage src={client.avatarUrl} alt="Avatar" data-ai-hint="person avatar" />
                         <AvatarFallback>
                           {client.name.charAt(0)}
                         </AvatarFallback>
